@@ -1,0 +1,240 @@
+# JWT Authenticator - Root .gitignore
+# This file combines patterns from both frontend (React/Node.js) and backend (Java/Maven) projects
+
+###################
+# Frontend (React/Node.js)
+###################
+
+# Dependencies
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# Production builds
+frontend/build/
+frontend/dist/
+
+# Testing
+frontend/coverage/
+
+# Environment variables
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/lerna-debug.log*
+frontend/.pnpm-debug.log*
+
+# Optional npm cache directory
+frontend/.npm
+
+# Optional eslint cache
+frontend/.eslintcache
+
+# Optional stylelint cache
+frontend/.stylelintcache
+
+# Microbundle cache
+frontend/.rpt2_cache/
+frontend/.rts2_cache_cjs/
+frontend/.rts2_cache_es/
+frontend/.rts2_cache_umd/
+
+# Optional REPL history
+frontend/.node_repl_history
+
+# Output of 'npm pack'
+frontend/*.tgz
+
+# Yarn Integrity file
+frontend/.yarn-integrity
+
+# parcel-bundler cache
+frontend/.cache
+frontend/.parcel-cache
+
+# Next.js build output
+frontend/.next
+
+# Nuxt.js build / generate output
+frontend/.nuxt
+
+# Storybook build outputs
+frontend/.out
+frontend/.storybook-out
+
+# Runtime configuration files
+frontend/.npmrc
+
+###################
+# Backend (Java/Maven)
+###################
+
+# Compiled class files
+backend/*.class
+
+# Log files
+backend/*.log
+
+# BlueJ files
+backend/*.ctxt
+
+# Mobile Tools for Java (J2ME)
+backend/.mtj.tmp/
+
+# Package Files
+backend/*.jar
+backend/*.war
+backend/*.nar
+backend/*.ear
+backend/*.zip
+backend/*.tar.gz
+backend/*.rar
+
+# Virtual machine crash logs
+backend/hs_err_pid*
+backend/replay_pid*
+
+# Maven
+backend/target/
+backend/pom.xml.tag
+backend/pom.xml.releaseBackup
+backend/pom.xml.versionsBackup
+backend/pom.xml.next
+backend/release.properties
+backend/dependency-reduced-pom.xml
+backend/buildNumber.properties
+backend/.mvn/timing.properties
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# Gradle (if used)
+backend/.gradle
+backend/build/
+!backend/gradle/wrapper/gradle-wrapper.jar
+!backend/**/src/main/**/build/
+!backend/**/src/test/**/build/
+
+# Spring Boot
+backend/*.pid
+backend/spring-shell.log
+
+# Application specific
+backend/application-local.yml
+backend/application-local.properties
+backend/application-dev.yml
+backend/application-dev.properties
+
+# Database
+backend/*.db
+backend/*.sqlite
+backend/*.sqlite3
+
+# JVM crash dumps
+backend/*.hprof
+
+# Security sensitive files
+backend/*.key
+backend/*.pem
+backend/*.p12
+backend/*.jks
+backend/*.keystore
+backend/*.truststore
+
+###################
+# IDE and Editor Files
+###################
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+*/out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+*/bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+###################
+# OS Generated Files
+###################
+
+# Mac
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+###################
+# Environment and Configuration
+###################
+
+# Environment variables (root level)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+###################
+# Version Control
+###################
+
+# Git
+.git/
+
+###################
+# Documentation and Notes
+###################
+
+# Personal notes (optional - uncomment if you want to ignore)
+# notes.md
+# TODO.md
+# scratch.txt

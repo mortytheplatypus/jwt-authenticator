@@ -1,0 +1,137 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #c9e9d2;
+  min-height: 100vh;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  width: 400px;
+  background-color: #f3f3e0;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.register-title {
+  color: #000000;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.register-input {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #dddfe2;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.register-input.error {
+  border-color: #ff3b30;
+}
+
+.error-message {
+  color: #ff3b30;
+  font-size: 0.8rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.register-button {
+  background-color: #35b4f0;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Ubuntu', monospace, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.register-button:hover {
+  background-color: #217aa3;
+}
+
+.register-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.register-prompt a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #004b91;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1rem;
+  margin-right: 1.8rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group label {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  font-size: 1rem;
+  color: #777;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group input:not(:placeholder-shown) {
+  border-color: #4b4848;
+  outline: none;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: -0.5rem;
+  left: 0.5rem;
+  font-size: 0.8rem;
+  color: #000000;
+  background-color: #fff;
+  padding: 0 0.3rem;
+}
+
+.form-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

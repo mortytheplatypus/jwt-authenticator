@@ -1,0 +1,24 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: jwt-authenticator-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jwt-authenticator-db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+application:
+  security:
+    jwt:
+      secret: 733c0c17536bf58c83519b41b134609fbbe6b2b6ee1ac8425f67596380bbfd4d
+      expiration: 86400000

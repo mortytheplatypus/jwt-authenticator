@@ -1,0 +1,60 @@
+.home-container {
+  padding: 40px;
+  display: flex;
+  flex-direction: row;
+  min-width: 90%;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 5px;
+}
+
+.image-container {
+  background-image: url('../../assets/home/the-pale-blue-dot.png');
+  background-size: cover;
+  background-position: center;
+  width: 45%;
+}
+
+.text-container {
+  background-color: #E9EED9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+  font-size: 0.9rem;
+  width: 50%;
+  text-align: left;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.logout-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logout-button {
+  background-color: #be0e0e;
+  color: white;
+  border: 1px solid rgb(48, 8, 8);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: "Ubuntu", monospace, sans-serif;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #8a2020;
+}
