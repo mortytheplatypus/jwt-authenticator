@@ -1,6 +1,6 @@
 package com.mortytheplatypus.backend.service;
 
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.mortytheplatypus.backend.repository.UserRepository;
 
-@Data
+@RequiredArgsConstructor
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

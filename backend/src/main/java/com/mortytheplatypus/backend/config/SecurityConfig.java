@@ -1,6 +1,6 @@
 package com.mortytheplatypus.backend.config;
 
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,11 +27,13 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@Data
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtAuthFilter jwtAuthFilter;
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
+    private final JwtAccessDeniedHandler accessDeniedHandler;
 
     private static final String[] WHITELIST = {
             "/auth/**"
@@ -41,38 +43,25 @@ public class SecurityConfig {
     private static final List<String> ALLOWED_METHODS = Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS");
     private static final List<String> ALLOWED_HEADERS = Arrays.asList("*");
 
-    /**
-     * Configures the security filter chain.
-     *
-     * @param http the HttpSecurity object used to configure web based security for
-     *             specific http requests.
-     * @return the configured SecurityFilterChain.
-     * @throws Exception if an error occurs during configuration.
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(
-                        req -> req.requestMatchers(WHITELIST)
-                                .permitAll()
-                                .requestMatchers("/admin/**")
-                                .hasAuthority(Role.ADMIN.name())
-                                .anyRequest()
-                                .authenticated())
+                .authorizeHttpRequests(req -> req
+                        .requestMatchers(WHITELIST).permitAll()
+                        .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
+                        .anyRequest().authenticated())
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler))
                 .userDetailsService(userDetailsService)
-                .sessionManagement(
-                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
-    /**
-     * Configures CORS (Cross-Origin Resource Sharing) settings for the application.
-     *
-     * @return A CorsConfigurationSource bean that defines CORS policies.
-     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -86,27 +75,14 @@ public class SecurityConfig {
         return source;
     }
 
-    /**
-     * Configures the password encoder to be used for encoding passwords.
-     *
-     * @return the PasswordEncoder instance.
-     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * Configures the authentication manager to be used for authentication.
-     *
-     * @param configuration the AuthenticationConfiguration object.
-     * @return the configured AuthenticationManager.
-     * @throws Exception if an error occurs during configuration.
-     */
     @Bean
     public AuthenticationManager authenticationManager(@NotNull AuthenticationConfiguration configuration)
             throws Exception {
         return configuration.getAuthenticationManager();
     }
-
 }

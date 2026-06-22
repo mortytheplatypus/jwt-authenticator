@@ -1,43 +1,33 @@
 package com.mortytheplatypus.backend.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.mortytheplatypus.backend.model.dto.ApiResponse;
 import com.mortytheplatypus.backend.model.dto.LoginDto;
 import com.mortytheplatypus.backend.model.dto.RegisterDto;
 import com.mortytheplatypus.backend.model.dto.TokenResponse;
 import com.mortytheplatypus.backend.service.AuthService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import lombok.Data;
-
-@Data
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> register(@RequestBody RegisterDto registerDto) {
-        try {
-            authService.register(registerDto);
-            return ResponseEntity.status(201).body(new ApiResponse(true, "User registered successfully"));
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode().value()).body(new ApiResponse(false, e.getReason()));
-        }
+    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterDto registerDto) {
+        authService.register(registerDto);
+        return ResponseEntity.status(201).body(new ApiResponse(true, "User registered successfully"));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenResponse> login(@RequestBody LoginDto loginDto) {
-
-        try {
-            TokenResponse response = authService.login(loginDto);
-
-            return ResponseEntity.ok(response);
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode().value()).body(new TokenResponse(null));
-        }
+    public ResponseEntity<TokenResponse> login(@Valid @RequestBody LoginDto loginDto) {
+        return ResponseEntity.ok(authService.login(loginDto));
     }
 }
