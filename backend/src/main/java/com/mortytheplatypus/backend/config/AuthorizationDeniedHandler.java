@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAccessDeniedHandler implements AccessDeniedHandler {
+public class AuthorizationDeniedHandler implements AccessDeniedHandler {
 
     private final ObjectMapper objectMapper;
 
@@ -22,13 +22,11 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(
             HttpServletRequest request,
             HttpServletResponse response,
-            AccessDeniedException accessDeniedException
-    ) throws IOException {
+            AccessDeniedException accessDeniedException) throws IOException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         objectMapper.writeValue(
                 response.getOutputStream(),
-                new ApiResponse(false, "Access denied")
-        );
+                new ApiResponse(false, "Access denied"));
     }
 }

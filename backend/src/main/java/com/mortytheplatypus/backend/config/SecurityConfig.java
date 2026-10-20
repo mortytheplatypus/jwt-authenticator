@@ -30,59 +30,60 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserDetailsServiceImpl userDetailsService;
-    private final JwtAuthFilter jwtAuthFilter;
-    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
-    private final JwtAccessDeniedHandler accessDeniedHandler;
+        private final UserDetailsServiceImpl userDetailsService;
+        private final JwtAuthFilter jwtAuthFilter;
+        private final AuthenticationRequiredEntryPoint authenticationRequiredEntryPoint;
+        private final AuthorizationDeniedHandler authorizationDeniedHandler;
 
-    private static final String[] WHITELIST = {
-            "/auth/**"
-    };
+        private static final String[] WHITELIST = {
+                        "/auth/**"
+        };
 
-    private static final List<String> ALLOWED_ORIGINS = Arrays.asList("http://localhost:3000");
-    private static final List<String> ALLOWED_METHODS = Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS");
-    private static final List<String> ALLOWED_HEADERS = Arrays.asList("*");
+        private static final List<String> ALLOWED_ORIGINS = Arrays.asList("http://localhost:3000");
+        private static final List<String> ALLOWED_METHODS = Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS");
+        private static final List<String> ALLOWED_HEADERS = Arrays.asList("*");
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req -> req
-                        .requestMatchers(WHITELIST).permitAll()
-                        .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
-                        .anyRequest().authenticated())
-                .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(authenticationEntryPoint)
-                        .accessDeniedHandler(accessDeniedHandler))
-                .userDetailsService(userDetailsService)
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                return http
+                                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(req -> req
+                                                .requestMatchers(WHITELIST).permitAll()
+                                                .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
+                                                .anyRequest().authenticated())
+                                .exceptionHandling(ex -> ex
+                                                .authenticationEntryPoint(authenticationRequiredEntryPoint)
+                                                .accessDeniedHandler(authorizationDeniedHandler))
+                                .userDetailsService(userDetailsService)
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                                .build();
+        }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(ALLOWED_ORIGINS);
-        configuration.setAllowedMethods(ALLOWED_METHODS);
-        configuration.setAllowedHeaders(ALLOWED_HEADERS);
-        configuration.setAllowCredentials(true);
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.setAllowedOrigins(ALLOWED_ORIGINS);
+                configuration.setAllowedMethods(ALLOWED_METHODS);
+                configuration.setAllowedHeaders(ALLOWED_HEADERS);
+                configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+                return source;
+        }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public AuthenticationManager authenticationManager(@NotNull AuthenticationConfiguration configuration)
-            throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+        @Bean
+        public AuthenticationManager authenticationManager(
+                @NotNull AuthenticationConfiguration configuration
+        ) throws Exception {
+                return configuration.getAuthenticationManager();
+        }
 }
